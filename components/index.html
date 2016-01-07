@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Components - Autostrap Documentation</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Components";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Autostrap Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Components</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#core-components">Core Components</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#puppet-modules">Puppet Modules</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../entry/">Entry Points</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../lifecycle/">Life of a Stack</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../config/">Configuration Sources</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../workflow/">Deployment Workflow</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../howto/">How do I...</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../topics/">Configuration Topic Reference</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../glossary/">Glossary</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Autostrap Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Components</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <div class="toc">
+<ul>
+<li><a href="#core-components">Core Components</a></li>
+<li><a href="#puppet-modules">Puppet Modules</a></li>
+</ul>
+</div>
+<p>In this section we will give a brief rundown of all the components that make up
+Autostrap. It lists all the git repositories the components of Autostrap
+reside in and gives a high-level description of these components. All
+repositories are on Github, with links provided in this section.</p>
+<p>A note to users: for setting up your service cloud, you will usually only need
+a fork of <a href="https://github.com/autostrap/project-config">project-config</a> and a checkout of
+<a href="https://github.com/autostrap/autostrap-utils">autostrap-utils</a>. The latter is optional but recommended
+since it provides convenient development tools.</p>
+<h1 id="core-components">Core Components</h1>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a name='bootstrap-scripts'></a> <a href="https://github.com/autostrap/bootstrap-scripts">bootstrap-scripts</a></td>
+<td>contains the bootstrap scripts that generate a <a href="http://docs.puppetlabs.com/hiera/1/">hiera.yaml</a> and get the machine to a point where it can run Puppet.</td>
+</tr>
+<tr>
+<td><a name='global-config'></a> <a href="https://github.com/autostrap/global-config">global-config</a></td>
+<td>contains known-good sample configuration in the shape of [Configuration Topics]{../glossary/topic.md}. Before you implement something from scratch you should browse this repository for an existing solution you might be able to customize to meet your needs.</td>
+</tr>
+<tr>
+<td><a name='project-config'></a> <a href="https://github.com/autostrap/project-config">project-config</a></td>
+<td>is an example repository that demonstrates and documents the structure and semantics of a project specific configuration repository. To use Autostrap, fork this repository and use it as a base for your custom configuration.</td>
+</tr>
+<tr>
+<td><a name='autostrap-utils'></a> <a href="https://github.com/autostrap/autostrap-utils">autostrap-utils</a></td>
+<td>contains useful utilities for building clouds using Autostrap.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="puppet-modules">Puppet Modules</h1>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/autostrap/puppet-autopuppet">puppet-autopuppet</a></td>
+<td>Sets up a Puppet master, Puppet agent or masterless puppet, including Sensu monitoring if desired.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/autostrap/puppet-base">puppet-base</a></td>
+<td>Sets up a sane environment, installs useful packages tweaks sysctls and a range of other things.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/autostrap/puppet-docbuild">puppet-docbuild</a></td>
+<td>Sets up build dependencies and automatically builds this documentation from its <a href="http://mkdocs.org">mkdocs</a> source.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/autostrap/puppet-openstackfacts">puppet-openstackfacts</a></td>
+<td>Contains various <a href="https://puppetlabs.com/facter">Facter</a> facts used by Autostrap.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/autostrap/puppet-repodeploy">puppet-repodeploy</a></td>
+<td>wraps <a href="https://github.com/puppetlabs/puppetlabs-vcsrepo">puppetlabs-vcsrepo</a> so it can be configured through a Hiera hash containing multiple repositories.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/autostrap/puppet-ssh">puppet-ssh</a></td>
+<td>Configures the <a href="http://www.openssh.org">SSH</a> daemon and deploys SSH authorized keys.</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../entry/" class="btn btn-neutral float-right" title="Entry Points"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Introduction"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../entry/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

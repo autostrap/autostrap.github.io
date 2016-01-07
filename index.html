@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Autostrap Documentation</title>
+  
+
+  <link rel="shortcut icon" href="./img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="./css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "None";
+  </script>
+  
+  <script src="./js/jquery-2.1.1.min.js"></script>
+  <script src="./js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="./js/highlight.pack.js"></script>
+  <script src="./js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> Autostrap Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href=".">Introduction</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#what-is-autostrap">What is Autostrap?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#environment">Environment</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#history">History</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#how-to-read-this-document">How to Read this Document</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#contact-and-contributions">Contact and Contributions</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="components/">Components</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="entry/">Entry Points</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="lifecycle/">Life of a Stack</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="config/">Configuration Sources</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="workflow/">Deployment Workflow</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="howto/">How do I...</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="topics/">Configuration Topic Reference</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="glossary/">Glossary</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">Autostrap Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Introduction</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <div class="toc">
+<ul>
+<li><a href="#what-is-autostrap">What is Autostrap?</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#history">History</a></li>
+<li><a href="#how-to-read-this-document">How to Read this Document</a></li>
+<li><a href="#contact-and-contributions">Contact and Contributions</a></li>
+</ul>
+</div>
+<h1 id="what-is-autostrap">What is Autostrap?</h1>
+<p><a href="https://github.com/autostrap">Autostrap</a> is a framework for deploying, configuring and orchestrating a set of
+virtual or physical machines that act in concert to provide a service, such as
+a web shop. It consists of known-good sample configuration for a range of
+services, sample <a href="https://wiki.openstack.org/wiki/Heat">Heat</a> templates for
+service clouds (or stacks, as Heat terms them) of one or more machines
+providing these services, and a set of bootstrapping scripts for setting the
+machines up for <a href="http://puppetlabs.com/">Puppet</a> configuration. It is designed to
+be easily extended with user or project specific configuration and Puppet code.
+All components are available under an <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>.</p>
+<p>Autostrap has been developed and tested on Ubuntu 14.04. It may work for other
+Debian flavoured systems, but none have been tested so far.</p>
+<h1 id="environment">Environment</h1>
+<p>Cloudstrap can either run standalone on any Ubuntu 14.04 with an Internet
+connection or it can be launched through Openstack's <a href="https://wiki.openstack.org/wiki/Heat">Heat</a>
+orchestration tool. Porting to Cloud environments other than Openstack should
+not pose too great a challenge, but so far this has not been put to the test.</p>
+<h1 id="history">History</h1>
+<p>Autostrap started out as an internal Project at <a href="http://www.syseleven.de">Syseleven</a>, where
+it was used to configure various services running as <a href="https://wiki.openstack.org/wiki/Heat">Heat</a> stacks
+on Syseleven's Openstack cloud. While it eventually turned out not to be ideal
+for Syseleven's intended use in managed hosting, it is nonetheless a very
+useful tool for building infrastructure automatically and reproducibly. 
+Syseleven kindly gave permission to release the code base to the community, the
+results of which you are looking at now.</p>
+<h1 id="how-to-read-this-document">How to Read this Document</h1>
+<p>If you are entirely new to Autostrap, we recommend starting with the
+<a href="components/">Components</a> and <a href="entry/">Entry Points</a> sections. The former will
+give you an overview of what components Autostrap consists of, the latter will
+give you an idea of how and where you can kick off the bootstrapping process.
+Once you are through with these two sections it's probably best to take some
+time to read <a href="lifecycle/">Life of a Stack</a>. It will give you a birds-eye
+overview of how Autostrap bootstraps a blank VM to a point where it can run
+puppet.</p>
+<p>After that, it's probably best to get your hands dirty and follow the
+instructions in the <a href="workflow/">Deployment Workflow</a> section to deploy your
+first Autostrap based service stack.</p>
+<p>Finally, you will find detailed reference documentation in the following
+sections:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="config/">Configuration Sources</a></td>
+<td>Discusses all knobs and dials available for configuring Autostrap in detail. Be sure to read this section before building a Autostrap based production setup.</td>
+</tr>
+<tr>
+<td><a href="glossary/">Glossary</a></td>
+<td>A glossary of terms we use in this document.</td>
+</tr>
+<tr>
+<td><a href="howto/">How do I...</a></td>
+<td>Short howto guides for various common tasks.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="contact-and-contributions">Contact and Contributions</h1>
+<p>For now, use our IRC channel <code>#autostrap</code> on
+<a href="http://www.freenode.org">FreeNode</a> to get in touch. We do not have a mailing
+list, yet. For Bug reports/feature requests, please raise an issue on
+our <a href="https://github.com/autostrap">Github page</a>.</p>
+<p>There is no formal contribution process right now. Just submit a pull request
+on Github. We recommend discussing large and/or breaking changes in the IRC
+channel first.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="components/" class="btn btn-neutral float-right" title="Components"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+        <span style="margin-left: 15px"><a href="components/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 0.14.0
+Build Date UTC : 2016-01-07 16:14:40.914811
+-->

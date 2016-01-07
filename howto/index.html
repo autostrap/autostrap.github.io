@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>How do I... - Autostrap Documentation</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "How do I...";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Autostrap Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../components/">Components</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../entry/">Entry Points</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../lifecycle/">Life of a Stack</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../config/">Configuration Sources</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../workflow/">Deployment Workflow</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">How do I...</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#how-do-i">How do I...</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#run-autostrapstandalone">...run autostrap.standalone?</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#deploy-ssh-public-keys-to-my-instances">...deploy SSH public keys to my Instances?</a></li>
+                
+                    <li><a class="toctree-l4" href="#examples">Examples</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../topics/">Configuration Topic Reference</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../glossary/">Glossary</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Autostrap Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>How do I...</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="how-do-i">How do I...</h1>
+<p>This section contains short HOWTO guides for various common tasks.</p>
+<p><a name='standalone'></a></p>
+<h1 id="run-autostrapstandalone">...run autostrap.standalone?</h1>
+<p>First of all you need a blank machine which fullfills the following
+requirements:</p>
+<ul>
+<li>
+<p>Ubuntu 14.04</p>
+</li>
+<li>
+<p>Internet Access</p>
+</li>
+<li>
+<p>Bash, Python, Git</p>
+</li>
+<li>
+<p>A deploy key for the private repositories you might use during bootstrapping
+  in <code>/root/deploy</code> (optional, but usually neccessary).</p>
+</li>
+</ul>
+<p>We recommend using a throwaway vagrant instance for this purpose.</p>
+<p>On your machine, run the following commands:</p>
+<pre><code>git clone https://github.com/autostrap/bootstrap-scripts.git \
+         /tmp/bootstrap-scripts
+unset SSH_AUTH_SOCK     # This ensures the deploy key is used 
+                        # (as opposed to a key an SSH agent might
+                        # be forwarding)
+cd /tmp/bootstrap-scripts/stage0
+deploy_key=&quot;$(cat /root/deploy)&quot; ./autostrap.standalone  \
+           -m topics=&quot;base puppet-masterless&quot; \
+           -m nodetype=docbox
+</code></pre>
+
+<p>This example will give you a nginx web server managed through masterless
+puppet, hosting this documentation. You can vary topics and other metadata
+parameters and/or environment variables (the Heat properties recognized by
+<code>AS::autostrap</code> are retrieved from identically named environment variables by
+<code>autostrap.standalone</code>) as needed to create other setups.</p>
+<p>Note: <code>autostrap.standalone</code> will not output anything on the console. To
+monitor progress tail the following files:</p>
+<ul>
+<li>
+<p>/var/log/autostrap/stage0.log</p>
+</li>
+<li>
+<p>/var/log/initialize_instance.log (only appears once initialize_instance has been launched)</p>
+</li>
+</ul>
+<p><a name='sshkeys'></a></p>
+<h1 id="deploy-ssh-public-keys-to-my-instances">...deploy SSH public keys to my Instances?</h1>
+<p>First of all, you need to enable the <a href="../topics/#ssh">ssh topic</a> on the machines
+you wish to deploy authorized keys on.</p>
+<p>Authorized SSH keys can be then be stored anywhere in your Hiera configuration
+(i.e. in your <a href="../config/#project">project-config</a> or an
+<a href="../config/#additional">additional_config</a> repository). Variables containing SSH
+keys must be hashes and have the following format:</p>
+<pre><code>ssh::keys:
+  'mykeyname':
+    type: ssh-rsa | ssh-dss
+    user: &lt;user&gt;
+    key: &lt;raw key&gt;
+    ensure: present | absent
+</code></pre>
+
+<p>This hash is keyed by free-form SSH key names.  Entries in this hash in turn
+contain a hash with the following keys/values:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type (required)</td>
+<td>The key's type, e.g. <code>ssh-dss</code> or <code>ssh-rsa</code>.</td>
+</tr>
+<tr>
+<td>user (required)</td>
+<td>The user whose <code>~/.ssh/authorized_keys</code> this key should be added to</td>
+</tr>
+<tr>
+<td>key (required)</td>
+<td>The raw public key, without the type and comment fields, (e.g. what you'd get from an <code>awk '{print $2}' ~/.ssh/*.pub</code>).</td>
+</tr>
+<tr>
+<td>ensure (optional)</td>
+<td>Whether to ensure the key being present or absent (defaults to present).</td>
+</tr>
+</tbody>
+</table>
+<p>There may be multiple variables containing such hashes. You can control which
+of these are merged to form the final hash of authorized keys in one of two
+ways:</p>
+<p>By default, Autostrap uses the hash <code>ssh::keys</code> if the <code>ssh</code>
+<a href="../glossary/#topic">topic</a> is enabled for a machine. Typically you would create
+this as a default hash in global-config and add to it in project-config. To
+prevent such a hash in global-config (e.g. if you create a project-config for a
+setup restricted to a smaller circle of keys than the ones found in your
+global-config repository) from being used you can use one of the following
+methods:</p>
+<ol>
+<li>
+<p>You can set the Hiera variable <code>ssh::key_sources</code>. This is an array
+   containing the Hiera variables to retrieve authorized keys from.</p>
+</li>
+<li>
+<p>You can supply the same thing as a space-delimited list of hiera variable
+   names in the metadata parameter <code>sshkeys</code>. This is ok for testing, but not
+   recommended in production. If the Hiera variable <code>ssh::key_sources</code> is set,
+   it will take precedence over this metadata parameter, i.e. the metadata
+   parameter will be ignored.</p>
+</li>
+</ol>
+<p>If you do not set the list of SSH key sources explicitely, it will default to
+the following variable:</p>
+<ul>
+<li><code>ssh::keys</code></li>
+</ul>
+<p>Additionally, <code>ssh::authorized_keys::authorized_keys</code> will be appended to
+<code>ssh::key_sources</code> if it is defined anywhere in your Hiera configuration. This
+ensures legacy setups that still store their SSH keys in
+<code>ssh::authorized_keys::authorized_keys</code> will continue to function.</p>
+<h2 id="examples">Examples</h2>
+<p>In this section you will find examples for configuring a custom list of Hiera
+variables to retrieve SSH authorized keys from, for both approaches outlined
+above. While you can use either of these approaches, we strongly recommend
+using the <code>ssh::key_sources</code> Hiera variable (it will also take precedence over
+the metadata approach if both types of configuration are used).</p>
+<h3 id="configuring-the-ssh-key-hash-names-through-hiera">Configuring the SSH key hash names through Hiera</h3>
+<p>To retrieve your SSH key hashes from the variables <code>ssh::keys::mykeys</code> and
+<code>ssh::keys::myotherkeys</code> you would add the following to your Hiera
+configuration:</p>
+<pre><code>ssh::key_sources:
+ - ssh::keys::mykeys
+ - ssh::keys::myotherkeys
+</code></pre>
+
+<h3 id="configuring-the-ssh-key-hash-names-through-the-sshkeys-metadata-entry">Configuring the SSH key hash names through the <code>sshkeys</code> metadata entry</h3>
+<p>To retrieve your SSH key hashes from the variables <code>ssh::keys::mykeys</code> and
+<code>ssh::keys::myotherkeys</code> you would add the following entry to the <code>metadata</code>
+key of your <code>OS::Nova::Server</code> resources:</p>
+<pre><code>mynode:
+  type: OS::Nova::Server
+  properties:
+    [...]
+    metadata:
+      sshkeys: 'ssh::keys::mykeys ssh::keys::myotherkeys'
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../topics/" class="btn btn-neutral float-right" title="Configuration Topic Reference"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../workflow/" class="btn btn-neutral" title="Deployment Workflow"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../workflow/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../topics/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

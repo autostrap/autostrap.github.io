@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Life of a Stack - Autostrap Documentation</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Life of a Stack";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Autostrap Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../components/">Components</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../entry/">Entry Points</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Life of a Stack</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#starting-point-a-heat-template">Starting Point: A Heat Template</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#first-bootstrapping-stage-the-asautostrap-heat-resource">First Bootstrapping Stage: The AS::autostrap Heat resource</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#second-bootstraping-stage-the-bootstrap-scripts-repository">Second Bootstraping Stage: The bootstrap-scripts repository</a></li>
+                
+                    <li><a class="toctree-l4" href="#starting-point-initialize_instance">Starting Point: initialize_instance</a></li>
+                
+                    <li><a class="toctree-l4" href="#puppet-setup-configuration-repository-retrieval">Puppet Setup: Configuration Repository Retrieval</a></li>
+                
+                    <li><a class="toctree-l4" href="#packages-and-system-setup">Packages and System Setup</a></li>
+                
+                    <li><a class="toctree-l4" href="#puppet-setup-temporary-module-installation">Puppet Setup: Temporary Module Installation</a></li>
+                
+                    <li><a class="toctree-l4" href="#puppet-setup-hiera-configuration-and-repository-checkouts">Puppet Setup: Hiera Configuration and Repository Checkouts</a></li>
+                
+                    <li><a class="toctree-l4" href="#puppet-setup-first-puppet-run">Puppet Setup: First Puppet Run</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../config/">Configuration Sources</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../workflow/">Deployment Workflow</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../howto/">How do I...</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../topics/">Configuration Topic Reference</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../glossary/">Glossary</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Autostrap Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Life of a Stack</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <div class="toc">
+<ul>
+<li><a href="#starting-point-a-heat-template">Starting Point: A Heat Template</a></li>
+<li><a href="#first-bootstrapping-stage-the-asautostrap-heat-resource">First Bootstrapping Stage: The AS::autostrap Heat resource</a></li>
+<li><a href="#second-bootstraping-stage-the-bootstrap-scripts-repository">Second Bootstraping Stage: The bootstrap-scripts repository</a><ul>
+<li><a href="#starting-point-initialize_instance">Starting Point: initialize_instance</a></li>
+<li><a href="#puppet-setup-configuration-repository-retrieval">Puppet Setup: Configuration Repository Retrieval</a></li>
+<li><a href="#packages-and-system-setup">Packages and System Setup</a></li>
+<li><a href="#puppet-setup-temporary-module-installation">Puppet Setup: Temporary Module Installation</a></li>
+<li><a href="#puppet-setup-hiera-configuration-and-repository-checkouts">Puppet Setup: Hiera Configuration and Repository Checkouts</a></li>
+<li><a href="#puppet-setup-first-puppet-run">Puppet Setup: First Puppet Run</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>In this section we will describe the life cycle of a Autostrap deployed
+service stack, from instantiating a heat template to the finished application,
+in particular this includes:</p>
+<ol>
+<li>
+<p>The components a Heat template needs for the instances within to be deployed
+  by Autostrap</p>
+</li>
+<li>
+<p>The individual stages in an instance's bootstrapping proces.</p>
+</li>
+</ol>
+<p>Read this section to get a high-level overview of what happens during the
+Autostrap bootstrapping process and how it is kicked off. You can later
+complement it with the <a href="../config">Configuration Sources</a> section for an in-depth
+discussion of the configuration sources that govern Autostrap's behaviour.</p>
+<h1 id="starting-point-a-heat-template">Starting Point: A Heat Template</h1>
+<p><img alt="" src="./figures/overview-bootstrap1.svg" /></p>
+<p>Once a machine is up, cloud-init will execute the user-data script generated by
+<a href="http://autostrap.github.io/heat-resources/#_as_autostrap">AS::autostrap</a>. This
+script will install <a href="http://git-scm.com/">git</a>, copy the deploy key to /root/.ssh, and clone
+<a href="https://github.com/autostrap/bootstrap-scripts">bootstrap-scripts</a>. Once
+<code>bootstrap-scripts</code> is available, the user-data scripts will execute the
+<code>initialize_instance</code> script in that repository's top-level directory, ushering
+in the second bootstrapping stage.
+Deployment of a service stack is kicked off by a Heat template. The schematic
+below shows the key components of the
+<a href="https://github.com/autostrap/project-config/blob/master/heat-templates/nginx-master-agent.yaml">nginx-master-agent</a>
+example Heat template and their relation to each other:</p>
+<p><img alt="" src="./figures/heat.svg" /></p>
+<p>There are two kinds of configuration the heat template passes to the two
+instances (<code>puppetmaster</code> and <code>nginx-server</code>):</p>
+<ol>
+<li>
+<p>A user-data script. This script is generated by the
+  <a href="http://autostrap.github.io/heat-resources/#_as_autostrap">AS::autostrap</a> Heat
+  resource and commonly parametrized through Heat. At a minimum, it needs a
+  <code>config_repo</code> parameter pointing at your <a href="../glossary/#project-config">project-config</a> repository.
+  Commonly there is only one <code>AS::autostrap</code> resource that is passed to all servers in the stack.</p>
+</li>
+<li>
+<p><a href="https://cloudinit.readthedocs.org/">cloud-init</a> metadata keys that pass
+information for use inside the node and control various aspects of puppet
+configuration. The most important such parameter is <code>topics</code>. This
+parameter governs the topics from <a href="https://github.com/autostrap/global-config">global-config</a> that the
+<a href="../lifecycle/#s2-run_puppet_hiera">second bootstrapping stage's puppet run</a>
+will deploy on the machine in question. In the example this makes
+<code>puppetmaster</code> a puppet master and agent, and <code>nginx-server</code> a puppet agent.</p>
+</li>
+</ol>
+<p>Once the Heat template is finished it can be deployed with a command that might
+look roughly as follows:</p>
+<pre><code>heat stack-create -f nginx-master-agent.yaml \
+                  -P config_repo=git@gitlab.example.com/my_project_config.git \
+                  -P key_name=mykey \
+                  -P deploy_key=&quot;$(cat ~/.ssh/deploy_key)&quot; \
+                  nginx-master-agent
+</code></pre>
+
+<p>Once this command is issued, heat will create the stack's constituent
+resources. As machines come up, their <a href="http://autostrap.github.io/heat-resources/#_as_autostrap">AS::autostrap</a>
+generated user-data script will be run by cloud-init. To provide an overview of the bootstrapping
+process we will use the following schematic throughout the rest of this
+section, with the current step highlighted:</p>
+<p><img alt="" src="./figures/overview.svg" /></p>
+<h1 id="first-bootstrapping-stage-the-asautostrap-heat-resource">First Bootstrapping Stage: The AS::autostrap Heat resource</h1>
+<p><img alt="" src="./figures/overview-bootstrap1.svg" /></p>
+<p>Once a machine is up, cloud-init will execute the user-data script generated by
+<a href="http://autostrap.github.io/heat-resources/#_as_autostrap">AS::autostrap</a>. This
+script will install <a href="http://git-scm.com/">git</a>, copy the deploy key to /root/.ssh, and clone
+<a href="https://github.com/autostrap/bootstrap-scripts">bootstrap-scripts</a>. Once
+<code>bootstrap-scripts</code> is available, the user-data scripts will execute the
+<code>initialize_instance</code> script in that repository's top-level directory, ushering
+in the second bootstrapping stage.</p>
+<h1 id="second-bootstraping-stage-the-bootstrap-scripts-repository">Second Bootstraping Stage: The bootstrap-scripts repository</h1>
+<p>Once the user-data script has run its course, it executes the script
+<code>initialize_instance</code> in the <code>boostrap-scripts</code> repository it just cloned.</p>
+<p><a name='s2-initialize'></a></p>
+<h2 id="starting-point-initialize_instance">Starting Point: initialize_instance</h2>
+<p><img alt="" src="./figures/overview-initialize_instance.svg" /></p>
+<p><code>initialize_instance</code> is primarily a wrapper for starting the various scripts
+in the second bootstrapping stage. It keeps track of progress (and writes
+status messages to <code>/dev/console</code> for outside visibility) and ensures all
+second stage output is logged to <code>/var/log/initialize_instance.log</code>. Once all
+second stage scripts have run, <code>initialize_instance</code> will report conclusion of
+the bootstrapping process to <code>/dev/console</code>.</p>
+<p>All second stage bootstrapping scripts are drawn from two sources:</p>
+<ol>
+<li>
+<p>The <code>bootstrap.d/</code> subdirectory of the <a href="../config/#global">global-config</a> repository.</p>
+</li>
+<li>
+<p>The <code>bootstrap.d/</code> subdirectory of your <a href="../config/#project">project-config</a> repository.</p>
+</li>
+</ol>
+<p>The contents of both these directories are symlinked to the
+<code>/opt/scripts/stage/</code> directory. All files in this directory are executed in
+shell globbing order, i.e. a script named <code>000-first</code> will be executed before
+111-last (much like in sysvinit's rc*.d directories). All scripts in
+<code>global-config</code> are prefixed with a zero-padded, three digit multiple of 20,
+e.g. <code>000-first</code>, <code>020-second</code>, <code>040-third</code>, ...</p>
+<p>If you add any scripts to your <a href="../config/#project">project-config</a> repository's
+<code>bootstrap.d</code> directory please do not prefix them with multiples of 20 since
+these are reserved for scripts from <a href="../config/#global">global-config</a>.
+Apart from that anything goes. I.e. you can number them in a way that places
+them between any two scripts from <a href="../config/#global">global-config</a>. If,
+for instance, you wanted your own script to run between <code>020-setup_system</code> and
+<code>040-setup_puppet_modules</code>, you could name it <code>030-myscript</code>.</p>
+<p>The rest of this section will give a rundown of the bootstrapping scripts
+pulled in from the <a href="../config/#global">global-config</a> repository.</p>
+<h2 id="puppet-setup-configuration-repository-retrieval">Puppet Setup: Configuration Repository Retrieval</h2>
+<p><img alt="" src="./figures/overview-setup_repos.svg" /></p>
+<p>The <code>setup_repos</code> script clones the two main configuration repositories that combine
+into the service stack's configuration (<a href="https://github.com/autostrap/global-config">global-config</a> and a
+<a href="../glossary/#project-config">project-config repository</a>), as well as the <a href="https://github.com/autostrap/puppet-repodeploy">repodeploy</a>
+puppet module. The URLs and revisions for these repositories are supplied as environment variables 
+passed through from the user-data script.</p>
+<h2 id="packages-and-system-setup">Packages and System Setup</h2>
+<p><img alt="" src="./figures/overview-setup_system.svg" /></p>
+<p><code>setup_system</code> is the first real step in the second bootstrapping stage. It
+configures <code>apt</code> repositories, installs packages required during the second
+bootstrapping stage, and configures various things in a sensible manner. Once
+it has finished, <a href="http://puppetlabs.com/">Puppet</a> setup begins.</p>
+<h2 id="puppet-setup-temporary-module-installation">Puppet Setup: Temporary Module Installation</h2>
+<p><img alt="" src="./figures/overview-setup_puppet_modules.svg" /></p>
+<p>With the preliminaries out of the way, <a href="http://puppetlabs.com/">Puppet</a> 
+deployment can now begin in earnest. As a first step, <code>setup_puppet_modules</code>
+performs for puppet what <code>setup_system</code> performed for the whole system: it
+installs a small selection of Puppet modules into <code>/etc/puppet/modules</code>. These
+modules are the bare minimum required for a first run of
+<a href="https://github.com/autostrap/puppet-repodeploy">puppet-repodeploy</a>.</p>
+<h2 id="puppet-setup-hiera-configuration-and-repository-checkouts">Puppet Setup: Hiera Configuration and Repository Checkouts</h2>
+<p><img alt="" src="./figures/overview-setup_hiera.svg" /></p>
+<p><code>setup_hiera</code> is the centerpiece of Autostrap's puppet bootstrapping process.
+It performs two tasks:</p>
+<ol>
+<li>
+<p>It generates a <code>hiera.yaml</code> configuration file. This file contains a list of
+  all the configuration files that are consulted by puppet running on this
+  machine (both in masterless mode, and by a puppet master if this machine
+  happens to be one).</p>
+</li>
+<li>
+<p>It clones the additional configuration repositories specified in the
+  <a href="../config/#additional"><code>additional_config</code></a> Heat parameter and adds
+  corresponding entries in hiera.yaml.</p>
+</li>
+<li>
+<p>It runs <a href="https://github.com/autostrap/puppet-repodeploy">puppet-repodeploy</a> to retrieve
+  the repositories defined in the <code>repodeploy::repos</code> hash. This hash may occur
+  anywhere in the files listed in <code>hiera.yaml</code>. Multiple occurences are merged.</p>
+</li>
+</ol>
+<p>The contents of <code>hiera.yaml</code> vary based on the following parameters:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The <code>cloud-init</code> metadata entry <code>topics</code></td>
+<td>This is a space delimited list that determines the topics to be deployed by (a) <code>run_puppet_hiera</code> and (b) subsequent puppet runs, if the <code>puppet-masterless</code> topic has been deployed to this machine. All configuration files that make up the topic in question will be entered in <code>hiera.yaml</code>.</td>
+</tr>
+<tr>
+<td>The contents of <code>puppet/topics</code> in the <a href="../glossary/#project-config">project-config</a> repository</td>
+<td>This is mainly relevant for a Puppet master. This file contains a list of all the topics this puppet master serves to its agents. <code>setup_hiera</code> will add the contents of these topics' <code>config.d</code> and <code>repos.d</code> subdirectories to <code>hiera.yaml</code>. Thus both the configuration relevant to the topics in question and the puppet modules required for their deployment will be available on the puppet master.</td>
+</tr>
+</tbody>
+</table>
+<p>Once <code>hiera.yaml</code> has been generated and repodeploy has retrieved all
+repositories, <code>setup_hiera</code> will remove <code>/etc/puppet/modules</code>, since it has
+served its purpose: the modules therein were only required to run
+<code>puppet-repodeploy</code>. From this point onward, only puppet modules retrieved by
+<code>puppet-repodeploy</code> will be used. The system is now ready for its first
+masterless puppet run.</p>
+<p><a name='s2-run_puppet_hiera'></a></p>
+<h2 id="puppet-setup-first-puppet-run">Puppet Setup: First Puppet Run</h2>
+<p><img alt="" src="./figures/overview-run_puppet_hiera.svg" /></p>
+<p>At the end of the puppet bootstrapping process, <code>run_puppet_hiera</code> will run
+puppet, driven by the <code>hiera.yaml</code> just generated. This puppet run will deploy
+all <a href="../glossary/#topic">topics</a> listed in the machine's <code>topics</code> metadata entry. This list
+usually includes either <code>puppet-masterless</code> or <code>puppet-agent</code>. Hence this first
+puppet run ensures continuing management of the machine's configuration by
+regular puppet runs from now on.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../config/" class="btn btn-neutral float-right" title="Configuration Sources"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../entry/" class="btn btn-neutral" title="Entry Points"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../entry/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../config/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

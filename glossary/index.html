@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Glossary - Autostrap Documentation</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Glossary";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Autostrap Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../components/">Components</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../entry/">Entry Points</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../lifecycle/">Life of a Stack</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../config/">Configuration Sources</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../workflow/">Deployment Workflow</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../howto/">How do I...</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../topics/">Configuration Topic Reference</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Glossary</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#project-config">project-config</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#topic">topic</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Autostrap Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Glossary</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p>In this section you will find explanations of terms we use to refer to various
+concepts in the Autostrap environment.</p>
+<p><a name='project-config'></a></p>
+<h1 id="project-config">project-config</h1>
+<p>project-config is a Git repository that contains configuration specific to a
+given project. It complements and overrides Autostrap's default configuration
+in the <a href="https://github.com/autostrap/global-config">global-config</a> repository. For
+reference on its structure and semantics we provide an
+<a href="https://github.com/autostrap/project-config">example project-config repository</a>.
+Feel free to fork this repository and use it as a base for your own
+project-config repository.</p>
+<p><a name='topic'></a></p>
+<h1 id="topic">topic</h1>
+<p>A topic is a self-contained unit of default configuration from the
+<a href="https://github.com/autostrap/global-config">global-config</a> repository. It has a
+topic name (henceforth referred to by the placeholder 'name') and consists of
+the following directories in <code>global-config/puppet/hieradata</code>:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>classes.d/<code>name</code></td>
+<td>This directory typically contains a file named <code>classes.yaml</code> which holds the Hiera array <code>classes</code>. The elements of this array are all the puppet classes required to deploy the topic in question.</td>
+</tr>
+<tr>
+<td>config.d/<code>name</code></td>
+<td>This directory contains all configuration data required by this topic. This configuration can be overriden partially or completely by the configuration in a <a href="../glossary/#project-config">project-config</a> repository.</td>
+</tr>
+<tr>
+<td>repos.d/<code>name</code></td>
+<td>This directory contains <a href="https://github.com/autostrap/puppet-repodeploy">puppet-repodeploy</a> configuration specifying the repositories to be checked out when deploying the topic in question. Commonly these repositories are puppet modules required for deployment.</td>
+</tr>
+</tbody>
+</table>
+<p>Topics can be deployed using <a href="../workflow/#masterless-topics">masterless Puppet</a>
+or by by <a href="../workflow/#master-agent-topics">adding</a> it to a Puppet master's
+configuration. If a topic is deployed to a node in masterless fashion, all the
+YAML files in the abovementioned directories are added to this node's
+hiera.yaml. If it is added to the Puppet master's list of topics, only its
+<code>config.d</code> and <code>repos.d</code> subdirectories will be added to the Puppet master's
+hiera.yaml. Class declarations for nodes/node types will have to be
+<a href="../workflow/#master-agent-classes">configured</a> on a per-node/nodetype basis.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../topics/" class="btn btn-neutral" title="Configuration Topic Reference"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../topics/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Deployment Workflow - Autostrap Documentation</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Deployment Workflow";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Autostrap Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../components/">Components</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../entry/">Entry Points</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../lifecycle/">Life of a Stack</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../config/">Configuration Sources</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Deployment Workflow</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#prerequisites">Prerequisites</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#puppet-masteragent-based-configuration">Puppet Master/Agent Based Configuration</a></li>
+                
+                    <li><a class="toctree-l4" href="#step-1-creating-a-heat-template">Step 1: Creating a Heat Template</a></li>
+                
+                    <li><a class="toctree-l4" href="#adding-a-asautostrap-resource">Adding a AS::autostrap resource</a></li>
+                
+                    <li><a class="toctree-l4" href="#required-metadata-parameters-for-instances">Required Metadata parameters for instances</a></li>
+                
+                    <li><a class="toctree-l4" href="#step-2-adding-configuration-topics-from-global-config">Step 2: Adding Configuration Topics From global-config </a></li>
+                
+                    <li><a class="toctree-l4" href="#step-3-adding-topics-to-the-puppet-master">Step 3: Adding Topics to the Puppet Master </a></li>
+                
+                    <li><a class="toctree-l4" href="#step-4-forking-and-customizing-project-config">Step 4: Forking and Customizing project-config</a></li>
+                
+                    <li><a class="toctree-l4" href="#step-5-deploying-from-your-heat-template">Step 5: Deploying From Your Heat Template</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#masterless-puppet-configuration">Masterless Puppet Configuration</a></li>
+                
+                    <li><a class="toctree-l4" href="#step-1-creating-a-heat-template_1">Step 1: Creating a Heat Template</a></li>
+                
+                    <li><a class="toctree-l4" href="#adding-a-asautostrap-resource_1">Adding a AS::autostrap resource</a></li>
+                
+                    <li><a class="toctree-l4" href="#required-metadata-parameters-for-instances_1">Required Metadata parameters for instances</a></li>
+                
+                    <li><a class="toctree-l4" href="#step-2-adding-configuration-topics-from-global-config_1">Step 2: Adding Configuration Topics From global-config</a></li>
+                
+                    <li><a class="toctree-l4" href="#step-3-forking-and-customizing-project-config">Step 3: Forking and Customizing project-config</a></li>
+                
+                    <li><a class="toctree-l4" href="#step-5-deploying-from-your-heat-template_1">Step 5: Deploying From Your Heat Template</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../howto/">How do I...</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../topics/">Configuration Topic Reference</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../glossary/">Glossary</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Autostrap Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Deployment Workflow</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p>In this section we will describe deployment workflows for two kinds of
+Puppet configuration approaches: masterless Puppet (for single-instance stacks)
+and a traditional Puppet master/agent setup (for stacks of two or more
+instances). Both approaches follow the same basic basic steps:</p>
+<p><img alt="" src="./figures/overview.svg" /></p>
+<p>These workflows assume you are deploying to an Openstack cloud, but they can be
+adapted to <a href="../entry/#autostrap.standalone">autostrap.standalone</a> if you do not
+have access to an Openstack cloud.</p>
+<p>We will start this section off with a check list of common prerequisites you
+will need for both approaches. Once you have the items on this list covered you
+can dive right into deploying your first stack using either the
+<a href="../workflow/#master-agent">master/agent</a> or <a href="../workflow/#masterless">masterless</a>
+approach.</p>
+<h1 id="prerequisites">Prerequisites</h1>
+<p>Following the deployment instructions described in this section requires the following:</p>
+<ul>
+<li>A user account on an Openstack cloud</li>
+<li>The Openstack <a href="http://docs.openstack.org/user-guide/content/install_clients.html">command-line clients</a></li>
+<li>git</li>
+<li>A remotely accessible (e.g. through SSH or HTTPS) git repository for storing
+  project specific configuration. This repository should start out as a fork of
+  Autostrap's <a href="https://github.com/autostrap/project-config">sample project-config repository</a>. Throughout this section we will
+  refer to this repository with the placeholder <em>my-config</em> and to its url with
+  the placeholder <em>my-config-url</em>.</li>
+<li>An editor with syntax highlighting for <a href="http://www.yaml.org">YAML</a> (optional, but recommended)</li>
+<li>The syseleven.cloudutils package for smoother handling of heat stacks
+  (optional, but recommended). A simple <code>pip install syseleven.cloudutils</code>
+  should take care of this.</li>
+</ul>
+<p><a name='master-agent'/></a></p>
+<h1 id="puppet-masteragent-based-configuration">Puppet Master/Agent Based Configuration</h1>
+<p>For larger setups a Puppet master can be automatically deployed, with all nodes
+(including the Puppet master itself) running Puppet agents. This approach is
+recommended for any setup beyond two nodes. This approach consists of a
+masterless first stage that sets up the Puppet master and its agent, with
+configuration being provided through the Puppet master from there on out.</p>
+<h2 id="step-1-creating-a-heat-template">Step 1: Creating a Heat Template</h2>
+<p>First of all you will need to describe your projects requirements in terms of a
+Heat template. As a starting point, the Heat project provides some 
+<a href="http://docs.openstack.org/developer/heat/template_guide/index.html">guidelines</a>
+on writing heat templates.</p>
+<p>Autostrap requires various meta data parameters and its own user-data script,
+so we recommend you modify one of our example templates in the <code>heat-templates</code>
+directory of <a href="https://github.com/autostrap/project-config">project-config</a> to fit your project's
+requirements.</p>
+<h2 id="adding-a-asautostrap-resource">Adding a AS::autostrap resource</h2>
+<p>The custom Heat resource <code>AS::autostrap</code> generates a user-data script that
+will kick off the autostrap deployment process. This user-data script is then
+passed to your instances (<code>OS::Nova::Server</code> resources) as user-data property.</p>
+<h3 id="properties">Properties</h3>
+<p>The following properties of <code>AS::autostrap</code> are most likely to be relevant
+to deploying a new project (refer to the <code>AS::autostrap</code> documentation for
+the rest):</p>
+<ul>
+<li>
+<p><code>config_repo</code>: The URL of your project specific configuration repository, i.e.
+  <em>my-config-url</em>.</p>
+</li>
+<li>
+<p><code>config_branch</code>: An optional branch/revision of your configuration repository
+  to check out. This is mainly useful for development and best sourced from a
+  Heat parameter that defaults to 'master' (thus allowing you to specify
+  experimental/development branches at run-time, while defaulting to a
+  known-good stable branch otherwise).'</p>
+</li>
+<li>
+<p><code>deploy_key</code>: A SSH private key with access to all non-public repositories
+  you specified in your repository configuration (i.e. all instances of
+  <code>repodeploy::repos</code> occuring in your configuration). We strongly recommend
+  against adding this deploy key to your heat template. Current best practice
+  is to pass it as a parameter (with the <code>hidden</code> attribute enabled). <a name=#master-agent-deploy></a></p>
+</li>
+</ul>
+<h3 id="declaration-example">Declaration Example</h3>
+<pre><code>  bootstrap:
+      type: AS::autostrap::v1
+      properties:
+        deploy_key: { get_param: deploy_key }
+        config_repo: &lt;my-config-url&gt;
+        config_branch: 
+</code></pre>
+
+<h3 id="instance-attachment-example">Instance Attachment Example</h3>
+<pre><code>  my_machine:
+    type: OS::Nova::Server
+      properties:
+        name: my_machine
+        user_data: { get_attr: [ bootstrap, script ] }
+        user_data_format: RAW
+</code></pre>
+
+<p>Note the "::v1" trailing the resource declaration. Like all of Autostrap's
+custom resources, this resource is versioned: whenever we introduce breaking
+API changes we increment the version number. This way you can generally rely on
+a given version continuing to behave as as expected. </p>
+<h2 id="required-metadata-parameters-for-instances">Required Metadata parameters for instances</h2>
+<p>You will need to pass at least the following heat parameters to instances
+(<code>OS::Nova::Server</code> resources) to be deployed using Autostrap:</p>
+<ul>
+<li><code>topics</code> - The configuration topics to deploy on the instance in question
+  (see <a href="../workflow/#master-agent-topics">Adding Topics to the Puppet Master</a>).</li>
+</ul>
+<p>Additionally, it is recommended to set the following metadata parameters:</p>
+<ul>
+<li>
+<p><code>stack_name</code> - Available to puppet through the fact <code>openstack_stack_name</code>
+  (requires the puppet module openstackfacts)</p>
+</li>
+<li>
+<p><code>floating_ip</code> - Available to puppet through the fact <code>openstack_floating_ip</code>
+  (requires the puppet module openstackfacts)</p>
+</li>
+</ul>
+<p>If you have followed the recommendations above, a regular machine's metadata property
+might look as follows:</p>
+<pre><code>      metadata:
+        stack_name: { get_param: 'OS::stack_name' }
+          topics: &quot;base ssh puppet-master-agent&quot;
+          stack_name: { get_param: 'OS::stack_name' }
+          floating_ip: { get_attr: [ my_port, floating_ip_address ] }
+          topics: &quot;base ssh puppet-master-agent&quot;
+</code></pre>
+
+<p>The puppetmaster's metadata property might then look like this:</p>
+<pre><code>      metadata:
+        stack_name: { get_param: 'OS::stack_name' }
+          topics: &quot;base ssh puppet-master-agent&quot;
+          stack_name: { get_param: 'OS::stack_name' }
+          floating_ip: { get_attr: [ my_port, floating_ip_address ] }
+          topics: &quot;base ssh puppet-master-agent&quot;
+</code></pre>
+
+<h2 id="step-2-adding-configuration-topics-from-global-config">Step 2: Adding Configuration Topics From global-config <a name='master-agent-topics'></a></h2>
+<p>Now you will have to pick configuration <a href="../glossary/#topic">topics</a> to deploy from
+<a href="https://github.com/autostrap/global-config">global-config</a>. Each topic consists of
+a set of puppet classes required to deploy the service or other configuration
+it deploys, hiera configuration and a list of repositories containing the
+puppet modules it uses.</p>
+<p>At a minimum, you will need the <code>puppet-master</code> topic on the designated puppet
+master and the <code>puppet-agent</code> topic on all nodes (including the puppet master).
+Additionally, <code>base</code> (sensible configuration and useful packages) and <code>ssh</code>
+(sensible sshd configuration and rollout of ssh public keys) are highly
+recommended.</p>
+<p>Once you have picked topics, edit your heat template and add them to the
+<code>topics</code> metadata entry of the instances they are to be deployed on. This
+metadata entry is a simple space separated list. If we assume you picked all
+topics recommended in the previous paragraph, a machine's meta data would contain
+the following entry:</p>
+<pre><code>      metadata:
+        topics: &quot;base ssh puppet-master-agent&quot;
+</code></pre>
+
+<h2 id="step-3-adding-topics-to-the-puppet-master">Step 3: Adding Topics to the Puppet Master <a name='master-agent-topics'></a></h2>
+<p>The <a href="../glossary/#topic">configuration topics</a> you picked in the previous section
+will be deployed in a masterless fashion upon node initialization. In addition
+to these you can and should now pick topics from
+<a href="https://github.com/autostrap/global-config">global-config</a> to be available through
+the puppet master. To this end, simply add their topic names (each on a single
+line) to the <code>puppet/topics</code> file in the <em>my-config</em> repository. These
+topics' <code>config.d</code> and <code>repos.d</code> subdirectories will be included in the puppet
+masters Hiera hierarchy, making the topics' configuration available and causing
+its component puppet modules to be checked out on the puppet master. Declaring
+these topics' component classes for individual nodes or node types will be up to you
+(see the next section).</p>
+<h2 id="step-4-forking-and-customizing-project-config">Step 4: Forking and Customizing project-config</h2>
+<p>Since you probably want to add custom configuration of your own beyond that
+provided by <a href="https://github.com/autostrap/global-config">global-config</a>, you will
+now need to fork <a href="https://github.com/autostrap/project-config">project-config</a>).
+This fork is the repository we referred to as <em>my-config</em> in the
+<a href="../workflow/#prerequisites">Prerequisites</a> section above.</p>
+<h3 id="controlling-access-to-my-config">Controlling access to <em>my-config</em></h3>
+<p><em>my-config</em> must be reachable from the Internet, so your Openstack instances
+can use it to retrieve your projects's configuration. It can be reachable
+through a public HTTPS URL, but we strongly recommend to make it accessible
+through SSH with public-key authentication. </p>
+<p>If you do make <em>my-config</em> non-public you will have to supply a
+<a href="../workflow/#master-agent-deploy">deploy_key</a> property to your
+<code>AS::autostrap</code> resource. This property must contain a SSH private key that
+can access <em>my-config</em>.</p>
+<h3 id="customizing-my-config">Customizing <em>my-config</em></h3>
+<p>Now you can modify <em>my-config</em> to your heart's content. The changes and
+additions will then be deployed on your heat stack's machines. You can put
+Hiera configuration into the following subdirectories of <em>my-config</em>:</p>
+<ul>
+<li>
+<p><code>puppet/hieradata/config.d</code>: This directory contains hiera configuration
+  relevant to all nodes/node types. It should contain all configuration that is
+  not confined to any specific node or node type. One example for such a
+  configuration value would be the list of SSH authorized keys, configured
+  in the <code>ssh::keys</code> hash. File and directory names in this directory are
+  free-form (every file with a .yaml extension will be included), but it is
+  recommended to organize configuration by topic name for easier navigation by
+  developers.</p>
+</li>
+<li>
+<p><code>puppet/hieradata/repos.d</code>: This directory contains <a href="https://github.com/autostrap/puppet-repodeploy">puppet-repodeploy</a>
+  configuration, i.e. zero or more instances of the <code>repodeploy::repos</code> hash.
+  This hash specifies repositories to be checked out by <a href="https://github.com/autostrap/puppet-repodeploy">puppet-repodeploy</a>. File
+  and directory names in this directory are free-form (every file with a .yaml
+  extension will be included), but it is recommended to organize configuration
+  by topic name for easier navigation by developers.</p>
+</li>
+<li>
+<p><code>puppet/hieradata/nodes.d</code>: This directory contains node specific
+  configuration. It should only contain configuration that is relevant to
+  specific nodes. All file names in this directory must be the target node's
+  FQDN plus a '.yaml' extension, e.g. <code>puppetmaster.local.yaml</code>. All nodes
+  start out with a FQDN of 'hostname'.local. The <code>classes</code> array holding the
+  classes to be deployed on a given node should be defined here.</p>
+</li>
+<li>
+<p><code>puppet/hieradata/nodetypes.d</code>: This directory contains node type specific
+  configuration. A node's node type (such as <code>appserver</code>) is assigned by
+  setting the <code>nodetype</code> metadata entry. All file names in this directory must
+  be the target node type's name as given in the <code>nodetype</code> metadata entry,
+  plus a '.yaml' extension, e.g. <code>appserver.yaml</code>. The <code>classes</code> array holding
+  the classes to be deployed on a given node type should be defined here.</p>
+</li>
+</ul>
+<p>Refer to the  example project-config repository's <a href="https://github.com/autostrap/project-config/blob/master/README.md">README.md file</a>
+file for more detailed information on these directories and their contents.</p>
+<h3 id="configuring-classes-to-be-deployed-on-nodes-and-node-types">Configuring classes to be deployed on nodes and node types <a name='master-agent-classes'></a></h3>
+<p>All classes to be included in the puppet master's catalog should be declared
+either on a per-node or a per-nodetype basis, i.e. in
+<code>puppet/hieradata/nodes.d</code> or <code>puppet/hieradata/nodetypes.d</code>, respectively. If
+you wish to deploy one or more of the ready-made topics from <a href="https://github.com/autostrap/global-config">global-config</a>,
+for a given node or node type you will need to do two things:</p>
+<ol>
+<li>
+<p>Ensure the topics' configuration and component puppet modules are available
+   on the puppet master (see <a href="../workflow/#master-agent-topics">Adding Topics to the Puppet Master</a>).</p>
+</li>
+<li>
+<p>Add the topics' classes to your nodes' and/or nodetypes' classes arrays.</p>
+</li>
+</ol>
+<p>For the latter step you can use the <code>merge_classes</code> script from the
+<a href="https://github.com/autostrap/autostrap-utils">autostrap-utils</a> repository.
+This script will gather multiple topics' classes arrays from <a href="https://github.com/autostrap/global-config">global-config</a>
+and merge them into a classes array ready for inclusion in a configuration file
+in <code>nodes.d</code> or <code>nodetypes.d</code>. The following example generates a classes array
+containing the <code>nginx-server</code>, and <code>puppet-agent</code> topics:</p>
+<pre><code>git clone https://github.com/autostrap/global-config.git /tmp/global-config
+merge_classes --classes-dir /tmp/global-config/puppet/hieradata/classes.d \
+              nginx-server puppet-agent
+</code></pre>
+
+<p>This would yield the following classes array, which also happens to be a valid
+node/node type configuration:</p>
+<pre><code>classes:
+  - &quot;nginx&quot;
+  - &quot;autopuppet::role::agent&quot;
+</code></pre>
+
+<p>To include it in an existing node configuration you would have to remove the
+<code>---</code> in the first line, since leaving it in place would indicate the begin of
+a new YAML document.</p>
+<h2 id="step-5-deploying-from-your-heat-template">Step 5: Deploying From Your Heat Template</h2>
+<p>Once configuration is finished and pushed to the <em>my-config</em> repository and
+your heat template contains the neccessary elements you can deploy a heat stack
+roughly as follows</p>
+<pre><code>heat stack-create -f mycloud.yaml \
+                  -P key_name=&lt;nova key name&gt; \
+                  -P deploy_key=&quot;$(cat ~/.ssh/deploy_key)&quot; \
+                  my-master-agent-stack
+</code></pre>
+
+<p>Substitute the key name you specified when uploading your SSH key to nova for
+<code>&lt;nova key name&gt;</code>.  You may also have to supply a <code>public_net_id</code> parameter.</p>
+<p>Other parameters supplied to <code>heat stack-create</code> may vary. This example assumes a
+largely unmodified copy of the <code>sensu-master-agent.yaml</code> example template with
+just the <code>config_repo</code> parameter's default changed to <em>my-config-url</em>.</p>
+<p><a name='masterless'/></a></p>
+<h1 id="masterless-puppet-configuration">Masterless Puppet Configuration</h1>
+<p>This approach is meant for small setups that typically consist of only one or
+two servers. In this case a Puppet master is not really needed. Consequently,
+all configuration and Puppet modules relevant to the node in question will be
+locally available on any node. A cronjob will run puppet locally on a regular
+basis. The diagram below gives an overview of the steps involved in a
+masterless puppet setup:</p>
+<h2 id="step-1-creating-a-heat-template_1">Step 1: Creating a Heat Template</h2>
+<p>First of all you will need to describe your projects requirements in terms of a
+Heat template. As a starting point, the Heat project provides some 
+<a href="http://docs.openstack.org/developer/heat/template_guide/index.html">guidelines</a>
+on writing heat templates.</p>
+<p>Autostrap requires various meta data parameters and an Autostrap provided
+user-data script, so we recommend you modify one of our example templates in
+the heat-templates directory of <a href="https://github.com/autostrap/project-config">project-config</a>
+to fit your project's requirements.</p>
+<h2 id="adding-a-asautostrap-resource_1">Adding a AS::autostrap resource</h2>
+<p>The custom Heat resource <code>AS::autostrap</code> generates a user-data script that
+will kick off the autostrap deployment process. This user-data script is then
+passed to your instances (<code>OS::Nova::Server</code> resources) as user-data property.</p>
+<h3 id="properties_1">Properties</h3>
+<p>The following properties of <code>AS::autostrap</code> are most likely to be relevant
+to deploying a new project (refer to the <code>AS::autostrap</code> documentation for
+the rest):</p>
+<ul>
+<li>
+<p><code>config_repo</code>: The URL of your project specific configuration repository, i.e.
+  <em>my-config-url</em>. <a name='masterless-config_repo'></a></p>
+</li>
+<li>
+<p><code>config_branch</code>: An optional branch/revision of your configuration repository
+  to check out. This is mainly useful for development and best sourced from a
+  Heat parameter that defaults to 'master' (thus allowing you to specify
+  experimental/development branches at run-time, while defaulting to a
+  known-good stable branch otherwise).'</p>
+</li>
+<li>
+<p><code>deploy_key</code>: A SSH private key with access to all non-public repositories
+  you specified in your repository configuration (i.e. all instances of
+  <code>repodeploy::repos</code> occuring in your configuration). We strongly recommend
+  against adding this deploy key to your heat template. Current best practice
+  is to pass it as a parameter (with the <code>hidden</code> attribute enabled). <a name='masterless-deploy_key'></a></p>
+</li>
+</ul>
+<h3 id="declaration-example_1">Declaration Example</h3>
+<pre><code>  bootstrap:
+      type: AS::autostrap::v1
+      properties:
+        deploy_key: { get_param: deploy_key }
+        config_repo: &lt;my-config-url&gt;
+        config_branch: 
+</code></pre>
+
+<h3 id="instance-attachment-example_1">Instance Attachment Example</h3>
+<pre><code>  my_machine:
+    type: OS::Nova::Server
+      properties:
+        name: my_machine
+        user_data: { get_attr: [ bootstrap, script ] }
+        user_data_format: RAW
+</code></pre>
+
+<p>Note the "::v1" trailing the resource declaration. Like all of Autostrap's
+custom resources, this resource is versioned: whenever we introduce breaking
+API changes we increment the version number. This way you can generally rely on
+a given version continuing to behave as as expected.</p>
+<h2 id="required-metadata-parameters-for-instances_1">Required Metadata parameters for instances</h2>
+<p>You will need to pass at least the following heat parameters to instances
+(<code>OS::Nova::Server</code> resources) to be deployed using Autostrap:</p>
+<ul>
+<li><code>topics</code> - The configuration topics to deploy on the instance in question
+  (see <a href="../workflow/#masterless-topics">Adding Configuration Topics from global-config</a>).</li>
+</ul>
+<p>Additionally, it is recommended to set the following metadata parameters:</p>
+<ul>
+<li>
+<p><code>stack_name</code> - Available to puppet through the fact <code>openstack_stack_name</code>
+  (requires the puppet module openstackfacts)</p>
+</li>
+<li>
+<p><code>floating_ip</code> - Available to puppet through the fact <code>openstack_floating_ip</code>
+  (requires the puppet module openstackfacts)</p>
+</li>
+</ul>
+<p>If you have followed the recommendations above, a machine's metadata property
+might look as follows:</p>
+<pre><code>      metadata:
+        stack_name: { get_param: 'OS::stack_name' }
+          topics: &quot;base ssh puppet-masterless&quot;
+          stack_name: { get_param: 'OS::stack_name' }
+          floating_ip: { get_attr: [ my_port, floating_ip_address ] }
+          topics: &quot;base ssh puppet-masterless&quot;
+
+</code></pre>
+
+<p><a name='masterless-topics'></a></p>
+<h2 id="step-2-adding-configuration-topics-from-global-config_1">Step 2: Adding Configuration Topics From global-config</h2>
+<p>Now you will have to pick configuration <a href="../glossary/#topic">topics</a> to deploy from
+<a href="https://github.com/autostrap/global-config">global-config</a>. Each topic consists of
+a set of puppet classes required to deploy the service or other configuration
+it deploys, hiera configuration and a list of repositories containing the
+puppet modules it uses.</p>
+<p>At a minimum, you will need the <code>puppet-masterless</code> topic. Additionally,
+<code>base</code> (sensible configuration and useful packages) and <code>ssh</code> (sensible sshd
+configuration and rollout of ssh authorized keys) are highly recommended.</p>
+<p>Once you have picked topics, edit your heat template and add them to the
+<code>topics</code> metadata entry of the instances they are to be deployed on. This
+metadata entry is a simple space separated list. If we assume you picked all
+topics recommended in the previous paragraph, a machine's meta data would contain
+the following entry:</p>
+<pre><code>      metadata:
+        topics: &quot;base ssh puppet-masterless&quot;
+</code></pre>
+
+<h2 id="step-3-forking-and-customizing-project-config">Step 3: Forking and Customizing project-config</h2>
+<p>Since you probably want to add custom configuration of your own beyond that
+provided by <a href="https://github.com/autostrap/global-config">global-config</a>, you will
+now need to fork <a href="https://github.com/autostrap/project-config">project-config</a>.  This fork is the
+repository we referred to as <em>my-config</em> in the
+<a href="../workflow/#prerequisites">Prerequisites</a> section above.</p>
+<h3 id="controlling-access-to-my-config_1">Controlling access to <em>my-config</em></h3>
+<p><em>my-config</em> must be reachable from the Internet, so your Openstack instances
+can use it to retrieve your projects's configuration. It can be reachable
+through a public HTTPS URL, but we strongly recommend to make it accessible
+through SSH with public-key authentication. </p>
+<p>If you do make <em>my-config</em> non-public you will have to supply a
+<a href="../workflow/#masterless-deploy_key">deploy_key</a> property to your
+<code>As::autostrap</code> resource. This property must contain a SSH private key that
+can access <em>my-config</em>.</p>
+<h3 id="customizing-my-config_1">Customizing <em>my-config</em></h3>
+<p>Now you can modify <em>my-config</em> to your heart's content. The changes and
+additions will then be deployed on your heat stack's machines. You can put
+Hiera configuration into the following subdirectories of <em>my-config</em>:</p>
+<ul>
+<li>
+<p><code>puppet/hieradata/config.d</code>: This directory contains hiera configuration
+  relevant to all nodes/node types. It should contain all configuration that is
+  not confined to any specific node or node type. One example for such a
+  configuration value would be the list of SSH authorized keys, configured in
+  the <code>ssh::keys</code> hash.  File and directory names in this directory are
+  free-form (every file with a .yaml extension will be included), but it is
+  recommended to organize configuration by topic name for easier navigation by
+  developers.</p>
+</li>
+<li>
+<p><code>puppet/hieradata/repos.d</code>: This directory contains
+  <a href="https://github.com/autostrap/puppet-repodeploy">puppet-repodeploy</a> configuration, i.e. zero or more
+  instances of the <code>repodeploy::repos</code> hash.  This hash specifies repositories
+  to be checked out by <a href="https://github.com/autostrap/puppet-repodeploy">puppet-repodeploy</a>. File and
+  directory names in this directory are free-form (every file with a .yaml
+  extension will be included), but it is recommended to organize configuration
+  by topic name for easier navigation by developers.</p>
+</li>
+<li>
+<p><code>puppet/hieradata/nodes.d</code>: This directory contains node specific
+  configuration. It should only contain configuration that is relevant to
+  specific nodes. All file names in this directory must be the target node's
+  FQDN plus a '.yaml' extension, e.g. <code>puppetmaster.local.yaml</code>. All nodes
+  start out with a FQDN of 'hostname'.local.</p>
+</li>
+<li>
+<p><code>puppet/hieradata/nodetypes.d</code>: This directory contains node type specific
+  configuration. A node's node type (such as <code>appserver</code>) is assigned by
+  setting the <code>nodetype</code> metadata entry. All file names in this directory must
+  be the target node type's name as given in the <code>nodetype</code> metadata entry,
+  plus a '.yaml' extension, e.g. <code>appserver.yaml</code>.</p>
+</li>
+</ul>
+<p>All classes to be included in puppet's catalog should be declared either on a
+per-node or a per-nodetype basis, unless they are part of a topic from the
+<code>topics</code> metadata entry already, of course. This means adding a <code>classes</code> array
+to a file in <code>puppet/hieradata/nodes.d</code> and/or <code>puppet/hieradata/nodetypes.d</code>.</p>
+<p>Refer to the  example project-config repository's <a href="https://github.com/autostrap/project-config/blob/master/README.md">README.md
+file</a> file for more detailed information on these
+directories and their contents.</p>
+<p>Last but not least, you can add last-minute commands to be run at the end of the
+bootstrapping process to <code>bootstrap.d/additional</code>. This is the place for
+everything that cannot be handled using puppet. This script will run on all
+nodes using <em>my-config</em> as its project configuration repository.</p>
+<h3 id="configuring-my-config-in-your-heat-template">Configuring <em>my-config</em> in your Heat template</h3>
+<p>As a final step, you will need to make the Heat stack you are creating aware of
+your <em>my-config</em> repository. To this end, simply pass <em>my-config-url</em> as
+<a href="../workflow/#masterless-config_repo">config_repo</a> property to
+your <code>AS::autostrap</code> resource.</p>
+<h2 id="step-5-deploying-from-your-heat-template_1">Step 5: Deploying From Your Heat Template</h2>
+<p>Once configuration is finished and pushed to the <em>my-config</em> repository and
+your heat template contains the neccessary elements you can deploy a heat stack
+roughly as follows:</p>
+<pre><code>heat stack-create -f mycloud.yaml \
+                  -P key_name=&lt;nova key name&gt; \
+                  -P deploy_key=&quot;$(cat ~/.ssh/deploy_key)&quot; \
+                  my-masterless-stack
+</code></pre>
+
+<p>Substitute the key name you specified when uploading your SSH key to nova for
+<code>&lt;nova key name&gt;</code>. You may also have to supply a <code>public_net_id</code> parameter.</p>
+<p>Other parameters supplied to <code>heat stack-create</code> may vary. This example assumes a
+largely unmodified copy of the <code>nginx-masterless.yaml</code> example template with
+just the <code>config_repo</code> parameter's default changed to <em>my-config-url</em>.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../howto/" class="btn btn-neutral float-right" title="How do I..."/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../config/" class="btn btn-neutral" title="Configuration Sources"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../config/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../howto/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

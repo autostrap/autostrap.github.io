@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Configuration Topic Reference - Autostrap Documentation</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Configuration Topic Reference";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Autostrap Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Introduction</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../components/">Components</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../entry/">Entry Points</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../lifecycle/">Life of a Stack</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../config/">Configuration Sources</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../workflow/">Deployment Workflow</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../howto/">How do I...</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Configuration Topic Reference</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#base">base</a></li>
+                
+                    <li><a class="toctree-l4" href="#declared-classes">Declared Classes</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#nginx-static">nginx-static</a></li>
+                
+                    <li><a class="toctree-l4" href="#declared-classes_1">Declared Classes</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#puppet-agent">puppet-agent</a></li>
+                
+                    <li><a class="toctree-l4" href="#declared-classes_2">Declared Classes</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#puppet-master">puppet-master</a></li>
+                
+                    <li><a class="toctree-l4" href="#declared-classes_3">Declared Classes</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#puppet-masterless">puppet-masterless</a></li>
+                
+                    <li><a class="toctree-l4" href="#declared-classes_4">Declared Classes</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#ssh">ssh</a></li>
+                
+                    <li><a class="toctree-l4" href="#declared-classes_5">Declared Classes</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../glossary/">Glossary</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Autostrap Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Configuration Topic Reference</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p>This section contains reference documentation on all the <a href="../glossary/#topic">topics</a>
+available from the <a href="../config/#global">global-config</a> repository. Each topic's
+documentation contains an overview of the configuration it ships with and a
+list of the puppet classes it declares. To enable a given configuration topic
+on an instance, just add it to this instance's metadata parameter (this
+parameter is a space delimited list of topics).</p>
+<h1 id="base">base</h1>
+<p>This topic loads most of Autostrap's <a href="https://github.com/autostrap/puppet-base">puppet-base</a>
+module (the key handling logic of the <a href="../topics/#ssh">ssh topic</a> are part of
+<code>puppet-base</code> but not loaded by the <code>base</code> topic. <code>puppet-base</code> handles basic
+system configuration. This includes among other things:</p>
+<ul>
+<li>
+<p>Setting a root password</p>
+</li>
+<li>
+<p>Setting various sysctls to sensible values</p>
+</li>
+<li>
+<p>apt(8) configuration</p>
+</li>
+<li>
+<p>Installing a few useful packages</p>
+</li>
+<li>
+<p>Sane bash, vim and screen settings</p>
+</li>
+</ul>
+<h2 id="declared-classes">Declared Classes</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>base::role::common</code></td>
+<td>Declares most profiles from <a href="https://github.com/autostrap/puppet-base">puppet-base</a>.  It does 'not' load <code>base::role::sshkeys</code>, for instance (that is declared in the <a href="../topics/#ssh">ssh</a>).</td>
+</tr>
+</tbody>
+</table>
+<h1 id="nginx-static">nginx-static</h1>
+<p>This topic sets up a <a href="http://nginx.org">nginx</a> web server that responds to
+your instance's floating IP address and serves the static files it finds in
+<code>/usr/share/nginx/html</code>. It is meant for very simple setups, i.e. if you want
+to do anything beyond serving a bunch of static files through unencrypted HTTP
+do not use this topic.</p>
+<h2 id="declared-classes_1">Declared Classes</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nginx</code></td>
+<td>Configures <code>nginx</code>.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="puppet-agent">puppet-agent</h1>
+<p>This topic configures a puppet agent. It is part of our standard puppet setup
+process for stacks of two or more instances. If you have a puppet master that
+is not named <code>puppetmaster.local</code>, you will need to set the <code>puppetmaster</code> meta
+data entry to its host name on all instances you deploy this topic to.</p>
+<h2 id="declared-classes_2">Declared Classes</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>autopuppet::role::agent</code></td>
+<td>Configures a puppet agent.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="puppet-master">puppet-master</h1>
+<p>This topic configures a puppet master. It is part of our standard puppet setup
+process for stacks consisting of two or more instances. Only configure it on the
+instance you want to be the puppet master.</p>
+<h2 id="declared-classes_3">Declared Classes</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>autopuppet::role::puppetmaster</code></td>
+<td>Configures a puppet master.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="puppet-masterless">puppet-masterless</h1>
+<p>This topic configures a masterless puppet setup. This is our standard puppet
+setup for stacks consisting of just one instance.</p>
+<h2 id="declared-classes_4">Declared Classes</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>autopuppet::role::masterless</code></td>
+<td>Configures masterless (local) puppet.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ssh">ssh</h1>
+<p>This topic configures an instance's <code>ssh</code> daemon in a secure manner and
+deploys SSH public keys from several Hiera hashes to the <code>root</code> user's
+<code>authorized_keys</code> file (see our <a href="../howto/#sshkeys">key deployment HOWTO</a> for
+details on configuring authorized keys).</p>
+<h2 id="declared-classes_5">Declared Classes</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ssh</code></td>
+<td>Our <a href="https://github.com/autostrap/puppet-ssh">puppet module</a> for ssh configuration.</td>
+</tr>
+<tr>
+<td>'base::role::sshkeys`</td>
+<td>Deploys authorized keys.</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../glossary/" class="btn btn-neutral float-right" title="Glossary"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../howto/" class="btn btn-neutral" title="How do I..."><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../howto/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../glossary/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>
