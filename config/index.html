@@ -171,12 +171,18 @@
                 <div class="toc">
 <ul>
 <li><a href="#configuration-sources">Configuration Sources</a><ul>
-<li><a href="#global-config-default-configuration">global-config: Default Configuration</a></li>
-<li><a href="#project-configuration">Project Configuration</a></li>
+<li><a href="#global-config-default-configuration">global-config: Default Configuration</a><ul>
+<li><a href="#entry-position-in-hierayaml">Entry Position in hiera.yaml</a></li>
+</ul>
+</li>
+<li><a href="#project-configuration">Project Configuration</a><ul>
+<li><a href="#entry-position-in-hierayaml_1">Entry Position in hiera.yaml</a></li>
+</ul>
+</li>
 <li><a href="#additional-configuration">Additional Configuration</a><ul>
 <li><a href="#additional_config-parameter-format">additional_config Parameter Format</a></li>
 <li><a href="#additional_config-example">additional_config Example</a></li>
-<li><a href="#entry-position-in-hierayaml">Entry Position in hiera.yaml</a></li>
+<li><a href="#entry-position-in-hierayaml_2">Entry Position in hiera.yaml</a></li>
 </ul>
 </li>
 <li><a href="#cloud-init-user-data-script-and-metadata-parameters">cloud-init: User Data Script and Metadata Parameters</a><ul>
@@ -218,6 +224,12 @@ metadata parameter, or indirectly by
 <p>The <code>global-config</code> repository is meant as default configuration, to be overriden and extended
 by the <a href="../glossary/#project-config">project-config</a> repository described in the next
 section.</p>
+<h3 id="entry-position-in-hierayaml">Entry Position in hiera.yaml</h3>
+<p>Hierarchy entries pointing to the global-config repository will appear at the
+very bottom of the hierarchy in <code>hiera.yaml</code>. This means that configuration
+from either <a href="../config/#project">project-config</a> or any of the repositories
+specified through the <a href="../config/#additional">additional_config parameter</a> will
+override it.</p>
 <p><a name='project'></a></p>
 <h2 id="project-configuration">Project Configuration</h2>
 <p>The second pilar of configuration is the <a href="../glossary/#project-config">project-config</a> repository. 
@@ -236,6 +248,10 @@ through the <a href="http://autostrap.github.io/heat-resources/#_config_repo"><c
 and <a href="http://autostrap.github.io/heat-resources/#_config_branch"><code>config_branch</code></a>
 parameters to the
 <a href="http://autostrap.github.io/heat-resources/#_as_autostrap">AS::autostrap Heat resource</a>, respectively.</p>
+<h3 id="entry-position-in-hierayaml_1">Entry Position in hiera.yaml</h3>
+<p>Hierarchy entries pointing to the project-config repository will appear before
+entries from the <a href="../config/#global">global-config</a> repository and after entries
+from <a href="../config/#additional">additional config repositories</a>.</p>
 <p><a name='additional'></a></p>
 <h2 id="additional-configuration">Additional Configuration</h2>
 <p>Finally, autostrap contains a mechanism for inserting arbitrary snippets of
@@ -285,7 +301,7 @@ git@gitlab.example.com:my-team/my-config.git#devel::config/ssh/keys:apache/*'
 <li>Clone <code>git@gitlab.example.com:my-team/my-config.git</code>, checkout revision <code>devel</code> and symlink it to <code>/etc/puppet/hieradata/my-team</code>.</li>
 <li>Add <code>my-team/ssh/keys</code>, and all contents of the <code>apache/</code> subdirectory to Hiera's hierarchy.</li>
 </ul>
-<h3 id="entry-position-in-hierayaml">Entry Position in hiera.yaml</h3>
+<h3 id="entry-position-in-hierayaml_2">Entry Position in hiera.yaml</h3>
 <p>Hierarchy entries resulting from the <code>additional_config</code> parameter will appear
 before entries from the <a href="../glossary/#project-config">project-config</a> repository.</p>
 <p>Repositories will appear in the order their repository specifications appear in
