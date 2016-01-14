@@ -95,6 +95,8 @@
             
                 <li class="toctree-l3"><a href="#puppet-masteragent-based-configuration">Puppet Master/Agent Based Configuration</a></li>
                 
+                    <li><a class="toctree-l4" href="#overviewchecklist">Overview/Checklist</a></li>
+                
                     <li><a class="toctree-l4" href="#step-1-creating-a-heat-template">Step 1: Creating a Heat Template</a></li>
                 
                     <li><a class="toctree-l4" href="#adding-a-asautostrap-resource">Adding a AS::autostrap resource</a></li>
@@ -111,6 +113,8 @@
                 
             
                 <li class="toctree-l3"><a href="#masterless-puppet-configuration">Masterless Puppet Configuration</a></li>
+                
+                    <li><a class="toctree-l4" href="#overviewchecklist_1">Overview/Checklist</a></li>
                 
                     <li><a class="toctree-l4" href="#step-1-creating-a-heat-template_1">Step 1: Creating a Heat Template</a></li>
                 
@@ -226,6 +230,44 @@ approach.</p>
 recommended for any setup beyond two nodes. This approach consists of a
 masterless first stage that sets up the Puppet master and its agent, with
 configuration being provided through the Puppet master from there on out.</p>
+<h2 id="overviewchecklist">Overview/Checklist</h2>
+<p>Since this workflow documentation is quite exhaustive we start off with a short
+summary in checklist format. This should give you a quick overview if you are
+new to Autostrap and serve as a handy reminder of the steps involved in
+configuring and deploying an Autostrap based setup.</p>
+<ol>
+<li>
+<p>Create a project-config repository accessible from the Internet using a deploy key.</p>
+</li>
+<li>
+<p>Create a heat template with a designated Puppet master and one or more Puppet
+   agents. In this heat template...</p>
+<ol>
+<li>
+<p>...assign <a href="../glossary/#topic">topics</a> to your servers (<code>puppet-master</code> and
+    <code>puppet-agent</code> at the very least).</p>
+</li>
+<li>
+<p>...create an <a href="http://autostrap.github.io/heat-resources/#_as_autostrap">AS::autostrap</a> resource and pass it to
+    your servers as user-data. This should at the very have your
+    <a href="../config/#project">project-config</a> repository's URL in its <code>config_repo</code>
+    parameter and a deploy key able to access it in its <code>deploy_key</code>
+    parameter.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Configure Hiera using Puppetmaster side topics, general (<code>config.d</code>,
+   <code>repos.d</code>) and node/nodetype specific configuration in your project-config
+   repository.</p>
+</li>
+<li>
+<p>Instantiate your heat template,</p>
+</li>
+<li>
+<p>Repeat previous steps as needed until your setup builds flawlessly.</p>
+</li>
+</ol>
 <h2 id="step-1-creating-a-heat-template">Step 1: Creating a Heat Template</h2>
 <p>First of all you will need to describe your projects requirements in terms of a
 Heat template. As a starting point, the Heat project provides some 
@@ -470,6 +512,44 @@ all configuration and Puppet modules relevant to the node in question will be
 locally available on any node. A cronjob will run puppet locally on a regular
 basis. The diagram below gives an overview of the steps involved in a
 masterless puppet setup:</p>
+<h2 id="overviewchecklist_1">Overview/Checklist</h2>
+<p>Since this workflow documentation is quite exhaustive we start off with a short
+summary in checklist format. This should give you a quick overview if you are
+new to Autostrap and serve as a handy reminder of the steps involved in
+configuring and deploying an Autostrap based setup.</p>
+<ol>
+<li>
+<p>Create a project-config repository accessible from the Internet using a deploy key.</p>
+</li>
+<li>
+<p>Create a heat template with a designated Puppet master and one or more Puppet
+   agents. In this heat template...</p>
+<ol>
+<li>
+<p>...assign <a href="../glossary/#topic">topics</a> to your servers (<code>puppet-master</code> and
+    <code>puppet-agent</code> at the very least).</p>
+</li>
+<li>
+<p>...create an <a href="http://autostrap.github.io/heat-resources/#_as_autostrap">AS::autostrap</a> resource and pass it to
+    your servers as user-data. This should at the very have your
+    <a href="../config/#project">project-config</a> repository's URL in its <code>config_repo</code>
+    parameter and a deploy key able to access it in its <code>deploy_key</code>
+    parameter.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Configure Hiera using Puppetmaster side topics, general (<code>config.d</code>,
+   <code>repos.d</code>) and node/nodetype specific configuration in your project-config
+   repository.</p>
+</li>
+<li>
+<p>Instantiate your heat template,</p>
+</li>
+<li>
+<p>Repeat previous steps as needed until your setup builds flawlessly.</p>
+</li>
+</ol>
 <h2 id="step-1-creating-a-heat-template_1">Step 1: Creating a Heat Template</h2>
 <p>First of all you will need to describe your projects requirements in terms of a
 Heat template. As a starting point, the Heat project provides some 
