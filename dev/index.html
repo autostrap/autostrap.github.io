@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Entry Points - Autostrap Documentation</title>
+  <title>Development - Autostrap Documentation</title>
   
 
   <link rel="shortcut icon" href="../img/favicon.ico">
@@ -20,7 +20,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Entry Points";
+    var mkdocs_page_name = "Development";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js"></script>
@@ -64,18 +64,8 @@
 <li>
           
             <li>
-    <li class="toctree-l1 current">
-        <a class="current" href="./">Entry Points</a>
-        
-            <ul>
-            
-                <li class="toctree-l3"><a href="#heat-resource">Heat Resource</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#autostrapstandalone">autostrap.standalone</a></li>
-                
-            
-            </ul>
+    <li class="toctree-l1 ">
+        <a class="" href="../entry/">Entry Points</a>
         
     </li>
 <li>
@@ -123,8 +113,15 @@
 <li>
           
             <li>
-    <li class="toctree-l1 ">
-        <a class="" href="../dev/">Development</a>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Development</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#development-tools-for-openstack-environments">Development tools for Openstack environments</a></li>
+                
+            
+            </ul>
         
     </li>
 <li>
@@ -158,7 +155,7 @@
     
       
     
-    <li>Entry Points</li>
+    <li>Development</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -168,42 +165,16 @@
           <div role="main">
             <div class="section">
               
-                <p>Depending on the platform Autostrap is deployed on, there are various entry
-points into the bootstrapping process. We refer to these entry points as <em>Bootstrapping
-Stage 0</em>. The first common point for all platforms is the
-<a href="../lifecycle/#s2-initialize">initialize_instance</a> script.
-This script we also refer to as <em>Bootstrapping Stage 1</em>. It is the starting
-point for the actual bootstrapping process.  Currently, there are the following
-Stage 0 mechanisms for calling it:</p>
-<h1 id="heat-resource">Heat Resource</h1>
-<p>For Openstack platforms we developed the <a href="http://autostrap.github.io/heat-resources/#_as_autostrap">AS::autostrap</a> Heat
-resource. It generates a user-data script ready to be passed into
-<a href="http://docs.openstack.org/developer/heat/template_guide/openstack.html#OS::Nova::Server">OS::Nova::Server</a> instances. This script turns the parameters
-it receives through Heat into environment variables, clones
-<a href="https://github.com/autostrap/bootstrap-scripts">bootstrap-scripts</a> and launches
-<a href="../lifecycle/#s2-initialize">initialize_instance</a> in this environment. Usually
-you will only need one instance of this resource per Heat stack, i.e. you can
-pass the same generated script to all Nova servers in your stack.</p>
-<h1 id="autostrapstandalone">autostrap.standalone</h1>
-<p>For environments without Heat and cloud-init we developed
-<a href="https://github.com/autostrap/bootstrap-scripts/blob/master/stage0/autostrap.standalone">autostrap.standalone</a>.
-This script provides the same environment as the
-<a href="http://autostrap.github.io/heat-resources/#_as_autostrap">AS::autostrap</a> Heat
-resource and invokes initialize_instance as well. It emulates the Heat based
-parametrization mechanisms detailed in the <a href="../lifecycle">Life of a Stack</a> section with the
-following two mechanisms:</p>
+                <div class="toc">
 <ul>
-<li>
-<p>Parameters that are passed into <a href="http://autostrap.github.io/heat-resources/#_as_autostrap">AS::autostrap</a> as Heat properties are retrieved from identically named environment variables.</p>
-</li>
-<li>
-<p>cloud-init metadata parameters are passed as <code>=</code> delimited key-value arguments to <code>autostrap.standalone</code>'s <code>-m</code> option.</p>
-</li>
+<li><a href="#development-tools-for-openstack-environments">Development tools for Openstack environments</a></li>
 </ul>
-<p>Example: </p>
-<pre><code>autostrap.standalone -m topics=puppet-agent \
-                      -m nodetype=appserver
-</code></pre>
+</div>
+<h1 id="development-tools-for-openstack-environments">Development tools for Openstack environments</h1>
+<p>There is a range of Heat templates to faciliate development of both Heat based
+and standalone Autostrap if you have access to a Heat enabled Openstack cloud
+to instantiate them on. See their <a href="https://github.com/autostrap/project-config/blob/master/heat-templates/dev/README.md">README</a> for
+details.</p>
               
             </div>
           </div>
@@ -211,10 +182,10 @@ following two mechanisms:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../lifecycle/" class="btn btn-neutral float-right" title="Life of a Stack"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../glossary/" class="btn btn-neutral float-right" title="Glossary"/>Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../components/" class="btn btn-neutral" title="Components"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../topics/" class="btn btn-neutral" title="Configuration Topic Reference"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -240,10 +211,10 @@ following two mechanisms:</p>
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../components/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../topics/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../lifecycle/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../glossary/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

@@ -129,6 +129,13 @@
           
             <li>
     <li class="toctree-l1 ">
+        <a class="" href="../dev/">Development</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
         <a class="" href="../glossary/">Glossary</a>
         
     </li>
@@ -197,7 +204,7 @@ unset SSH_AUTH_SOCK     # This ensures the deploy key is used
 cd /tmp/bootstrap-scripts/stage0
 deploy_key=&quot;$(cat /root/deploy)&quot; ./autostrap.standalone  \
            -m topics=&quot;base puppet-masterless&quot; \
-           -m nodetype=docbox
+           -m nodetype=docserver
 </code></pre>
 
 <p>This example will give you a nginx web server managed through masterless
@@ -205,8 +212,8 @@ puppet, hosting this documentation. You can vary topics and other metadata
 parameters and/or environment variables (the Heat properties recognized by
 <code>AS::autostrap</code> are retrieved from identically named environment variables by
 <code>autostrap.standalone</code>) as needed to create other setups.</p>
-<p>Note: <code>autostrap.standalone</code> will not output anything on the console. To
-monitor progress tail the following files:</p>
+<p><code>autostrap.standalone</code> will print the bootstrap scripts' output on the console.
+Alternatively, you can tail the following files to monitor progress:</p>
 <ul>
 <li>
 <p>/var/log/autostrap/stage0.log</p>
